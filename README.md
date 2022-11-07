@@ -3,17 +3,17 @@ A veboldal a blackjack (magyarul huszonegy) játékkal foglalkozik.
 A blackjack egy kártyajáték melyet 52 lapos francia kártyával játszanak dzsókerek nélkül.Célja, hogy a játékos lapjainak összértéke minnél jobban megközelítse a 21-et, de azt ne lépje túl!
 
 Lapok értéke:
--Ász: 1 vagy 11; a lap értékét az határozza meg, hogy a leosztás szempontjából melyik érték előnyösebb
--Király, Dáma, Bubi: 10
--Számozott lapok (2–10): a lapon szereplő értéket viselik
+- Ász: 1 vagy 11; a lap értékét az határozza meg, hogy a leosztás szempontjából melyik érték előnyösebb
+- Király, Dáma, Bubi: 10
+- Számozott lapok (2–10): a lapon szereplő értéket viselik
 A lapok színének a játékban nincs jelentőssége!
 
 A játékot legalább (mi ezt az esetet reprodukáljuk majd) 2 játékos játsza, melynek egyike az osztó.Több játékos esetén a játékosok az osztó ellen játszanak.
 
 A játék menete:
--Tét: A játék a tét megadásásval kezdődik. A játékos álzal megadható minimum tétet a ház határozza meg.
--Osztás: Az osztó a játékosnak oszt egy lapot, a színével felfelé, majd egyet saját magának is, szintén a 	színével felfelé. Ezután ismét oszt a játékosnak egy újabb lapot a színével felfelé, valamint saját magának is, de ezt már színével lefelé. Ezt a lapot a játékos nem láthatja.
--Lapkérés: A játékos az osztást követően a kiövetkezőket teheti:
+- Tét: A játék a tét megadásásval kezdődik. A játékos álzal megadható minimum tétet a ház határozza meg.
+- Osztás: Az osztó a játékosnak oszt egy lapot, a színével felfelé, majd egyet saját magának is, szintén a 	színével felfelé. Ezután ismét oszt a játékosnak egy újabb lapot a színével felfelé, valamint saját magának is, de ezt már színével lefelé. Ezt a lapot a játékos nem láthatja.
+- Lapkérés: A játékos az osztást követően a kiövetkezőket teheti:
 	- Kérhet lapot (Hit)
 	- Megállhat (Stand)
 	- Megduplázhatja tétjét (Double/ Double down)

@@ -30,7 +30,7 @@ A játék menete:
 	- Ha a játékos az első két lapjának összértéke pontosan 21 (Blackjack), és az osztó nem Blackjack-et ért el, akkor a játékos a megtett tétet 3:2 arányban kapja meg.
 	
 
-Kifejezések (események):
+Használandó kifejezések (események):
 - Hit: Lapkérés. A játékos tetszőleges számú lapot kérhet, amég azok összértéke nem haladja meg a 21-et.
 
 - Stand: Megállás. A játékos nem kér több lapot.
@@ -49,4 +49,22 @@ Push: Ha a játékos és az osztó lapjainak összértéke egyforma, akkor a Pus
 - Blackjack: Ha a játékos, vagy az osztó első két lapjának összértéke pontosan 21, akkor azt Blackjack-nek nevezzük. Ez csak úgy lehetséges, ha az egyik lap Ász, a másik lap értéke pedig 10 (Király, Dáma, Bubi, vagy 10-es).
 
 A program felépítése (elképzelés):
-A weboldal egypaklis (Single Deck)
+- A weboldal egypaklis (Single Deck) blackjack-et fog reprodukálni, eleinte egy később talán több játékossal is (több játékosnál probléma lehet a reszponzivitás).
+-  Tétrakás: Input mezőben bekérjük a tétet, majd tároljuk (minden játékosnak külön).
+- A leosztást random sorrendben feltöltött random sorsolt  kártyát égetjük (Splice) majd az ezután az égetett kártya indexén álló kártyát osztjuk a játékosnak.
+- Az első két lap osztását követően a játékos 5 lehetőségét (Hit, Stand, Double Down, Split, Surrender) közül csak 3 elérhető minden esetben (Hit, Stand, Surrender), 2 leosztáshoz (hand) kötött (Double Down - csak az eldő két lanál, Split - csak két ugyanolyan értékű lapnál).
+- Hit: Ismételjük az osztási folyamatot (valószínűleg függvény lesz)
+- Double Down: Egyszer ismételjük a leosztást miután a játékos tétjét duplájára emeltük.
+- Stand: Tovább haladunk a következő játékosra (egy játékos esetén az osztóra).
+- Split: Megfelezzük a játékos lapjait 2 külön leosztásként kezeljük, de ugyanahhoz a játékoshoz tartoznak.
+- Surrender: A játékos feladaja, lapjait visszavesszük, tétje elveszik.
+- Insurance: A játékos tétje max másfélszerest helyezheti be, amennyiben az osztónak blackjack-je van a játékos az behelyezett biztosítást 2:1 arányban kapja vissza, eredeti tétje elveszik.
+- A játékos köre utá az osztó egy egyszerű függvény alapján működik. Amennyiben van még játékban maradt játékos az osztó:
+	1: Felfedi lefordított lapját
+	2: Osztani kezd magának amég el nem éri a 17-et vagy túl nem lépi a 21-et
+	3: 17-nél vagy afelett megáll
+- Eredmény:
+	1: Amennyiben az osztó nyer a játékos(ok) elvesztik tétjeiket.
+	2: Amennyiben az osztó veszít a 21-et minden játékban maradt játékos 2:1 arányban kapja vissza tétjét.
+	3: Amennyiben a játékos és az osztó lapjainak összértéke megegyezik a játékos visszakapja behelyezett tétjét.
+- A játék megismétlését a játékos dönti el (gomb?).

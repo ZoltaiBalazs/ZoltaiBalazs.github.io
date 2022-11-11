@@ -64,7 +64,7 @@ A program felépítése (elképzelés):
 	2: Osztani kezd magának amég el nem éri a 17-et vagy túl nem lépi a 21-et
 	3: 17-nél vagy afelett megáll
 - Eredmény:
-	1: Amennyiben az osztó nyer a játékos(ok) elvesztik tétjeiket.
-	2: Amennyiben az osztó veszít a 21-et minden játékban maradt játékos 2:1 arányban kapja vissza tétjét.
-	3: Amennyiben a játékos és az osztó lapjainak összértéke megegyezik a játékos visszakapja behelyezett tétjét.
-- A játék megismétlését a játékos dönti el (gomb?).
+	- 1: Amennyiben az osztó nyer a játékos(ok) elvesztik tétjeiket.
+	- 2: Amennyiben az osztó veszít a 21-et minden játékban maradt játékos 2:1 arányban kapja vissza tétjét.
+	- 3: Amennyiben a játékos és az osztó lapjainak összértéke megegyezik a játékos visszakapja behelyezett tétjét.
+- A játék megismétlését a játékos dönti el.

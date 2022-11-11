@@ -67,4 +67,4 @@ A program felépítése (elképzelés):
 	- 1: Amennyiben az osztó nyer a játékos(ok) elvesztik tétjeiket.
 	- 2: Amennyiben az osztó veszít a 21-et minden játékban maradt játékos 2:1 arányban kapja vissza tétjét.
 	- 3: Amennyiben a játékos és az osztó lapjainak összértéke megegyezik a játékos visszakapja behelyezett tétjét.
-- A játék megismétlését a játékos dönti el (gomb?).
+- A játék megismétlését a játékos dönti el.

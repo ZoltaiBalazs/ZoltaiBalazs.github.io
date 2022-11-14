@@ -92,10 +92,15 @@
 .deck {
     float:left;
     background: white;
-    color:#222;
-    padding: 10px;
-    border-radius:10px;
     border: double 5px;
+    border-radius:10px;
+    color:#222;
+    width: 10%;
+    padding: 10px;
+}
+
+.deck-img {
+    width: 100%;
 }
 
 .btn {

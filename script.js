@@ -80,17 +80,13 @@ function startblackjack() {
 }
 
 function dealHands() {
-// problem with A value cards: They now always have the weight 1
     for (var i = 0; i < 2; i++) {
         for (var x = 0; x < players.length; x++) {
             var card = deck.pop();
-            if (card.Value == 'A' || players[x].Points + card.Weight > 21) {
-                card.Weight = 1;
-                players[x].Hand.push(card);
+            if (card.Value == 'A') {
+                card.Weight = 11;
             }
-            else {
-                players[x].Hand.push(card);
-            }
+            players[x].Hand.push(card);
             renderCard(card, x);
             updatePoints();
         }
@@ -140,6 +136,11 @@ function updatePoints() {
 function hitMe() {
     var card = deck.pop();
     players[currentPlayer].Hand.push(card);
+    for (var i = 0; i < players[currentPlayer].Hand.length; i++) {
+        if  (players[currentPlayer].Hand[i].Value == 'A' || players[currentPlayer].points > 21) {
+            players[currentPlayer].Hand[i].Weight = 1;
+        }
+    }
     renderCard(card, currentPlayer);
     updatePoints();
     updateDeck();

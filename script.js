@@ -169,11 +169,20 @@ function stay() {
     }
 
     else {
+        currentPlayer = 0;
         end();
     }
 }
 
+function dealer() {
+    while (players[currentPlayer].Points < 17) {
+        hitMe();
+    }
+}
+
+
 function end() {
+    dealer();
     var winner = -1;
     var score = 0;
 

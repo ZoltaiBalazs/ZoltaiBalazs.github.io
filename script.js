@@ -206,6 +206,7 @@ function stay() {
 function dealer() {
     while (players[currentPlayer].Points < 17) {
         hitMe();
+        
     }
 }
 
@@ -235,6 +236,7 @@ function check() {
     if (players[currentPlayer].Points > 21 && players[currentPlayer].ID < players.length-1) {
         if (players[currentPlayer].Name == 'Dealer') {
             document.getElementById('status').innerHTML = 'Dealer LOST';
+            
         }
         else {
             document.getElementById('status').innerHTML = 'Player: ' + players[currentPlayer].ID + ' LOST';

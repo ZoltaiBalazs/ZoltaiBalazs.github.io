@@ -91,6 +91,9 @@ function startblackjack() {
     createPlayersUI();
     dealHands();
     document.getElementById('player_' + currentPlayer).classList.add('active');
+    if (players[currentPlayer].Points == 21) {
+        stay()        
+    }
 }
 
 function dealHands() {
@@ -105,7 +108,16 @@ function dealHands() {
             updatePoints();
         }
     }
-
+    players.forEach(element => {
+        if (element.Points == 21) {
+            document.getElementById('status').innerHTML = element.Name + ' Blackjack!';
+            document.getElementById('status').style.display = "inline-block";
+        }
+        else if (element.points == 22) {
+            element.Hand[0].Weight = 1;
+            updatePoints()
+        }
+    });
     updateDeck();
 }
 
@@ -149,12 +161,21 @@ function updatePoints() {
 
 function hitMe() {
     var card = deck.pop();
-    players[currentPlayer].Hand.push(card);
-    for (var i = 0; i < players[currentPlayer].Hand.length; i++) {
-        if  (players[currentPlayer].Hand[i].Value == 'A' || players[currentPlayer].points > 21) {
-            players[currentPlayer].Hand[i].Weight = 1;
+    if (players[currentPlayer].Points + card.Weight > 21) {
+        if (card.Value == 'A') {
+            card.Weight = 1;
+            updatePoints();
+        }
+        else {
+            for (var i = 0; i < players[currentPlayer].Hand.length; i++) {
+                if  (players[currentPlayer].Hand[i].Value == 'A' && (players[currentPlayer].Points + card.Weight) > 21) {
+                    players[currentPlayer].Hand[i].Weight = 1;
+                    updatePoints();
+            }
         }
     }
+    }
+    players[currentPlayer].Hand.push(card);
     renderCard(card, currentPlayer);
     updatePoints();
     updateDeck();

@@ -100,8 +100,11 @@ function dealHands() {
     for (var i = 0; i < 2; i++) {
         for (var x = 0; x < players.length; x++) {
             var card = deck.pop();
-            if (card.Value == 'A') {
+            if (card.Value == 'A' && i == 0) {
                 card.Weight = 11;
+            }
+            else if (i == 1 && card.Value == 'A' && players[x].Hand[i-1].Value == 'A') {
+                card.Weight = 1;
             }
             players[x].Hand.push(card);
             renderCard(card, x);
@@ -113,10 +116,10 @@ function dealHands() {
             document.getElementById('status').innerHTML = element.Name + ' Blackjack!';
             document.getElementById('status').style.display = "inline-block";
         }
-        else if (element.points == 22) {
-            element.Hand[0].Weight = 1;
-            updatePoints()
-        }
+    //     else if (element.points == 22) {
+    //         element.Hand[0].Weight = 1;
+    //         updatePoints()
+    //     }
     });
     updateDeck();
 }
@@ -155,7 +158,12 @@ function getPoints(player) {
 function updatePoints() {
     for (var i = 0; i < players.length; i++) {
         getPoints(i);
-        document.getElementById('points_' + i).innerHTML = players[i].Points;
+        if (players[i].Points > 21) {
+            document.getElementById('points_' + i).innerHTML = 'Bust';
+        }
+        else {
+            document.getElementById('points_' + i).innerHTML = players[i].Points;
+        }
     }
 }
 
@@ -224,7 +232,7 @@ function end() {
 }
 
 function check() {
-    if (players[currentPlayer].Points > 21) {
+    if (players[currentPlayer].Points > 21 && players[currentPlayer].ID < players.length-1) {
         if (players[currentPlayer].Name == 'Dealer') {
             document.getElementById('status').innerHTML = 'Dealer LOST';
         }
@@ -236,7 +244,7 @@ function check() {
         // end();
     }
     else if (players[currentPlayer].Points > 21 && players[currentPlayer].ID == players.length-1) {
-        end()
+        stay();
     }
 }
 

@@ -145,6 +145,11 @@
     }
 }
 
+#onload_button:hover{
+    animation: none;
+    opacity: 0.7;
+}
+
 #bj_logo{
     height: 300px;
     margin-top: 0px;

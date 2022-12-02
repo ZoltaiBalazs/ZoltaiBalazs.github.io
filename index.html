@@ -7,22 +7,21 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="game">
-            <h3>Blackjack</h3>
+            <h3 onclick="document.getElementById('fekajani').style.opacity = 100" style="cursor: default;">Blackjack</h3>
 
+            <img src="kepek/cards/Fekete_Janos.png" id="fekajani" onclick="alert('Nem megyek sehová!\nNe is próbálkozz, hehe!')">
 
             <div id="onload_div">
-                <button id="onload_button" onclick="document.getElementById('onload_div').style.opacity = 0;">Start</button>
-                <img src="kepek/Blackjack.png" alt="Blackjack" id="bj_logo" onclick="document.getElementById('onload_div').style.display = 'none'">
+                <img id="bj_logo" src="kepek/Blackjack.png" alt="Blackjack">
+                <button id="onload_button" onclick="document.getElementById('onload_div').style.display = 'none'">start</button>
             </div>
-            
 
-        
-
-
-    
             <div class="game-body">
                 <div class="game-options">
                     <input type="button" id="btnStart" class="btn" value="start" onclick="startblackjack()">

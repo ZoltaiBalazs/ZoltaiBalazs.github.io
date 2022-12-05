@@ -3,7 +3,7 @@
 }
 
 .game {
-    width: 720px;
+    width: 100%;
     border: solid 1px #ddd;
     margin: 0 auto;
     background-image: url(kepek/base_bg.jpg);
@@ -11,7 +11,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     border: solid 10px;
     text-align:center;
-    min-height:430px;
+    min-height:1000px;
 }
 
 .btn {
@@ -120,8 +120,8 @@
 
 #onload_div{
     margin-top: -79px;
-    width: 720px;
-    min-height:430px;
+    width: 100%;
+    min-height:1000px;
     background-color: black;
     position: absolute;
     z-index: 1;
@@ -129,9 +129,11 @@
 }
 
 #onload_button{
+    position: absolute;
+    top:80%;
+    left:45.5%;
     text-align: center;
     float: left;
-    margin-left: 300px;
     font-size: 20px;
     font-family: 'Press Start 2P', cursive;
     color: white;
@@ -156,7 +158,9 @@
 
 #bj_logo{
     height: 300px;
-    margin-top: 0px;
+    position: absolute;
+    top: 20%;
+    left: 30%;
 }
 
 #fekajani{
@@ -168,4 +172,8 @@
     z-index: -100;
     float: left;
     cursor: not-allowed;
+}
+
+body {
+    overflow-x: hidden;
 }

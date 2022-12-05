@@ -171,12 +171,7 @@ function getPoints(player) {
 function updatePoints() {
     for (var i = 0; i < players.length; i++) {
         getPoints(i);
-        if (players[i].Points > 21) {
-            document.getElementById('points_' + i).innerHTML = 'Bust';
-        }
-        else {
-            document.getElementById('points_' + i).innerHTML = players[i].Points;
-        }
+        document.getElementById('points_' + i).innerHTML = players[i].Points;
     }
 }
 
@@ -209,7 +204,6 @@ function stay() {
         currentPlayer += 1;
         document.getElementById('player_' + currentPlayer).classList.add('active');
     }
-
     else {
         currentPlayer = 0;
         end();
@@ -219,11 +213,9 @@ function stay() {
 function dealer() {
     while (players[currentPlayer].Points < 17) {
         hitMe();
-        
     }
     currentPlayer = -1;
 }
-
 
 function end() {
     dealer();
@@ -247,19 +239,9 @@ function end() {
 }
 
 function check() {
-    if (players[currentPlayer].Points > 21 && players[currentPlayer].ID < players.length-1) {
-        if (players[currentPlayer].Name == 'Dealer') {
-            document.getElementById('status').innerHTML = 'Dealer LOST';
-            
-        }
-        else {
-            document.getElementById('status').innerHTML = 'Player: ' + players[currentPlayer].ID + ' LOST';
-            stay();
-        }
-        document.getElementById('status').style.display = "inline-block";
-        // end();
-    }
-    else if (players[currentPlayer].Points > 21 && players[currentPlayer].ID == players.length-1) {
+    if (players[currentPlayer].Points > 21) {
+        document.getElementById('status_' + currentPlayer).innerText = 'Bust!';
+        document.getElementById("status_" + currentPlayer).style.display = "inline-block";
         stay();
     }
 }

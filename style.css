@@ -1,3 +1,7 @@
+#body{
+    background-color: black;
+}
+
 .game {
     width: 720px;
     border: solid 1px #ddd;
@@ -156,6 +160,7 @@
 }
 
 #fekajani{
+    margin-left: -300px;
     width: 100%;
     height: 100%;
     position: absolute;

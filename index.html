@@ -11,15 +11,15 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body id="body">
         <div class="game">
             <h3 onclick="document.getElementById('fekajani').style.opacity = 100" style="cursor: default;">Blackjack</h3>
 
-            <img src="kepek/cards/Fekete_Janos.png" id="fekajani" onclick="alert('Nem megyek sehová!\nNe is próbálkozz, hehe!')">
+            <img src="kepek/fekete_janos.jpg" id="fekajani" onclick="alert('Nem megyek sehová!\nNe is próbálkozz, hehe!')">
 
             <div id="onload_div">
                 <img id="bj_logo" src="kepek/Blackjack.png" alt="Blackjack">
-                <button id="onload_button" onclick="document.getElementById('onload_div').style.display = 'none'">start</button>
+                <button id="onload_button" onclick="document.getElementById('onload_div').style.display = 'none'; document.getElementById('body').style.backgroundColor = '#043917'">start</button>
             </div>
 
             <div class="game-body">

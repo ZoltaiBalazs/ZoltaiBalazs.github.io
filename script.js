@@ -39,33 +39,44 @@ function createPlayersUI() {
     var div_playerid = document.createElement('div');
     var div_hand = document.createElement('div');
     var div_points = document.createElement('div');
+    var div_status = document.createElement('div');
+
     div_points.className = 'points';
     div_points.id = 'points_' + 0;
     div_player.id = 'player_' + 0;
     div_player.className = 'player';
     div_hand.id = 'hand_' + 0;
     div_playerid.innerHTML = 'Dealer';
+    div_status.id = 'status_0';
+        div_status.className = 'status';
+
     div_player.appendChild(div_playerid);
     div_player.appendChild(div_hand);
     div_player.appendChild(div_points);
+    div_player.appendChild(div_status);
     document.getElementById('players').appendChild(div_player);
+
     for (var i = 1; i < players.length; i++)
     {
         var div_player = document.createElement('div');
         var div_playerid = document.createElement('div');
         var div_hand = document.createElement('div');
         var div_points = document.createElement('div');
+        var div_status = document.createElement('div');
 
         div_points.className = 'points';
         div_points.id = 'points_' + i;
         div_player.id = 'player_' + i;
         div_player.className = 'player';
         div_hand.id = 'hand_' + i;
+        div_status.id = 'status_' + i;
+        div_status.className = 'status';
 
         div_playerid.innerHTML = 'Player ' + players[i].ID;
         div_player.appendChild(div_playerid);
         div_player.appendChild(div_hand);
         div_player.appendChild(div_points);
+        div_player.appendChild(div_status);
         document.getElementById('players').appendChild(div_player);
     }
 }
@@ -111,16 +122,18 @@ function dealHands() {
             updatePoints();
         }
     }
-    players.forEach(element => {
-        if (element.Points == 21) {
-            document.getElementById('status').innerHTML = element.Name + ' Blackjack!';
-            document.getElementById('status').style.display = "inline-block";
-        }
-    //     else if (element.points == 22) {
-    //         element.Hand[0].Weight = 1;
-    //         updatePoints()
+    // players.forEach(element => {
+    //     if (element.Points == 21) {
+    //         document.getElementById('status').innerHTML = element.Name + ' Blackjack!';
+    //         document.getElementById('status').style.display = "inline-block";
     //     }
-    });
+    for (var i = 0; i < players.length; i++) {
+        if (players[i].Points == 21) {
+            document.getElementById('status_'+i).innerText = 'Blakjack!';
+            document.getElementById('status_'+i).style.display = "inline-block";
+        }
+    }
+    // });
     updateDeck();
 }
 

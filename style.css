@@ -48,8 +48,10 @@
     border:solid 3px;
 }
 
-.game .status {
-    display: inline-block;
+/* .game  */
+.status {
+    display: block;
+    width: 40%;
     background: gold;
     border: solid 5px white;
     border-radius: 10px;

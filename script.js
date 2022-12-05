@@ -208,6 +208,7 @@ function dealer() {
         hitMe();
         
     }
+    currentPlayer = -1;
 }
 
 

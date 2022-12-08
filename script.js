@@ -48,7 +48,7 @@ function createPlayersUI() {
     div_hand.id = 'hand_' + 0;
     div_playerid.innerHTML = 'Dealer';
     div_status.id = 'status_0';
-        div_status.className = 'status';
+    div_status.className = 'status';
 
     div_player.appendChild(div_playerid);
     div_player.appendChild(div_hand);
@@ -122,15 +122,14 @@ function dealHands() {
             updatePoints();
         }
     }
-    // players.forEach(element => {
-    //     if (element.Points == 21) {
-    //         document.getElementById('status').innerHTML = element.Name + ' Blackjack!';
-    //         document.getElementById('status').style.display = "inline-block";
-    //     }
+    // document.getElementById('hand_' + 0).lastChild.style.backgroundColor = 'black';    
     for (var i = 0; i < players.length; i++) {
         if (players[i].Points == 21) {
             document.getElementById('status_'+i).innerText = 'Blakjack!';
             document.getElementById('status_'+i).style.display = "inline-block";
+            if (i == 0) {
+                end();
+            }
         }
     }
     // });
@@ -218,24 +217,62 @@ function dealer() {
 }
 
 function end() {
-    dealer();
-    var winner = -1;
-    var score = 0;
-
-    for (var i = 0; i < players.length; i++) {
-        if (players[i].Points > score && players[i].Points <= 21) {
-            winner = i;
-            score = players[winner].Points;
+    if (players[0].Points == 21) {
+        currentPlayer = -1;
+        for (var i = 1; i < players.length; i++) {
+            var score = players[0].Points;
+            if (players[i].Points > score && players[i].Points <= 21) {
+                document.getElementById('status_' + i).innerText = 'Winner!';
+                document.getElementById("status_" + i).style.display = "inline-block";
+            }
+            else if (players[i].Points < score && players[i].Points <= 21) {
+                document.getElementById('status_' + i).innerText = 'Lost!';
+                document.getElementById("status_" + i).style.display = "inline-block";
+            }
+            else if (players[i].Points == score && players[i].Points <= 21) {
+                document.getElementById('status_' + i).innerText = 'Push!';
+                document.getElementById("status_" + i).style.display = "inline-block";
+            }
+            
         }
     }
-
-    if (players[winner].Name == 'Dealer') {
-        document.getElementById('status').innerHTML = 'Winner: Dealer';
-    }
     else {
-        document.getElementById('status').innerHTML = 'Winner: Player ' + players[winner].ID;
+        dealer();
+
+        for (var i = 1; i < players.length; i++) {
+            if (players[0].Points <= 21) {
+                var score = players[0].Points;
+                if (players[i].Points > score && players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Winner!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+                else if (players[i].Points < score && players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Lost!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+                else if (players[i].Points == score && players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Push!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+            }
+            else {
+                if (players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Winner!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+            }
+
+        }
     }
-    document.getElementById("status").style.display = "inline-block";
+    
+
+    // if (players[winner].Name == 'Dealer') {
+    //     document.getElementById('status').innerHTML = 'Winner: Dealer';
+    // }
+    // else {
+    //     document.getElementById('status').innerHTML = 'Winner: Player ' + players[winner].ID;
+    // }
+    // document.getElementById("status").style.display = "inline-block";
 }
 
 function check() {

@@ -3,7 +3,7 @@ var values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 var deck = new Array();
 var players = new Array();
 var currentPlayer = 1;
-var player_num = 2
+var player_num = -1;
 function createDeck() {
     deck = new Array();
     for (var i = 0; i < values.length; i++) {
@@ -291,7 +291,13 @@ window.addEventListener('load', function () {
     shuffle();
     createPlayers(1);
 });
+
 function player_update() {
-    player_num = document.querySelector('#NOP').value
-    console.log(player_num)
+    player_num = document.querySelector('#NOP').value;
+    if (player_num >= 2 && player_num <= 6) {
+        startblackjack();
+    }
+    else {
+        alert("A játékos számnak 2 és 6 között kell lennie!");
+    }
 }

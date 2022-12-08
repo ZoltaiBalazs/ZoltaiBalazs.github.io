@@ -3,7 +3,7 @@
 }
 
 .game {
-    width: 100%;
+    width: calc(100vw-20px);
     border: solid 1px #ddd;
     margin: 0 auto;
     background-image: url(kepek/base_bg.jpg);
@@ -11,7 +11,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     border: solid 10px;
     text-align:center;
-    min-height:1000px;
+    min-height:calc(100vh - 20px);
 }
 
 .btn {

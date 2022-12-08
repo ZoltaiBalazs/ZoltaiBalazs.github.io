@@ -1,4 +1,3 @@
-
 var suits = ["Spades", "Hearts", "Diamonds", "Clubs"];
 var values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 var deck = new Array();
@@ -132,7 +131,6 @@ function dealHands() {
             }
         }
     }
-    // });
     updateDeck();
 }
 
@@ -198,12 +196,19 @@ function hitMe() {
 }
 
 function stay() {
-    if (currentPlayer != players.length - 1) {
+    if (currentPlayer != players.length - 1 && players[currentPlayer+1].Points != 21) {
         document.getElementById('player_' + currentPlayer).classList.remove('active');
         currentPlayer += 1;
         document.getElementById('player_' + currentPlayer).classList.add('active');
     }
-    else {
+    else if (currentPlayer != players.length - 1 && players[currentPlayer+1].Points == 21) {
+            document.getElementById('player_' + currentPlayer).classList.remove('active');
+            currentPlayer += 1;
+            document.getElementById('player_' + currentPlayer).classList.add('active');
+            stay();
+    }
+    else if (currentPlayer == players.length - 1) {
+        document.getElementById('player_' + currentPlayer).classList.remove('active');
         currentPlayer = 0;
         end();
     }
@@ -264,21 +269,15 @@ function end() {
 
         }
     }
-    
-
-    // if (players[winner].Name == 'Dealer') {
-    //     document.getElementById('status').innerHTML = 'Winner: Dealer';
-    // }
-    // else {
-    //     document.getElementById('status').innerHTML = 'Winner: Player ' + players[winner].ID;
-    // }
-    // document.getElementById("status").style.display = "inline-block";
 }
 
 function check() {
     if (players[currentPlayer].Points > 21) {
         document.getElementById('status_' + currentPlayer).innerText = 'Bust!';
         document.getElementById("status_" + currentPlayer).style.display = "inline-block";
+        stay();
+    }
+    else if (players[currentPlayer].Hand.length == 2 && players[currentPlayer].Points == 21) {
         stay();
     }
 }

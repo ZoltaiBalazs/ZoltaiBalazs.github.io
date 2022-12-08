@@ -39,33 +39,44 @@ function createPlayersUI() {
     var div_playerid = document.createElement('div');
     var div_hand = document.createElement('div');
     var div_points = document.createElement('div');
+    var div_status = document.createElement('div');
+
     div_points.className = 'points';
     div_points.id = 'points_' + 0;
     div_player.id = 'player_' + 0;
     div_player.className = 'player';
     div_hand.id = 'hand_' + 0;
     div_playerid.innerHTML = 'Dealer';
+    div_status.id = 'status_0';
+    div_status.className = 'status';
+
     div_player.appendChild(div_playerid);
     div_player.appendChild(div_hand);
     div_player.appendChild(div_points);
+    div_player.appendChild(div_status);
     document.getElementById('players').appendChild(div_player);
+
     for (var i = 1; i < players.length; i++)
     {
         var div_player = document.createElement('div');
         var div_playerid = document.createElement('div');
         var div_hand = document.createElement('div');
         var div_points = document.createElement('div');
+        var div_status = document.createElement('div');
 
         div_points.className = 'points';
         div_points.id = 'points_' + i;
         div_player.id = 'player_' + i;
         div_player.className = 'player';
         div_hand.id = 'hand_' + i;
+        div_status.id = 'status_' + i;
+        div_status.className = 'status';
 
         div_playerid.innerHTML = 'Player ' + players[i].ID;
         div_player.appendChild(div_playerid);
         div_player.appendChild(div_hand);
         div_player.appendChild(div_points);
+        div_player.appendChild(div_status);
         document.getElementById('players').appendChild(div_player);
     }
 }
@@ -91,21 +102,37 @@ function startblackjack() {
     createPlayersUI();
     dealHands();
     document.getElementById('player_' + currentPlayer).classList.add('active');
+    if (players[currentPlayer].Points == 21) {
+        stay()        
+    }
 }
 
 function dealHands() {
     for (var i = 0; i < 2; i++) {
         for (var x = 0; x < players.length; x++) {
             var card = deck.pop();
-            if (card.Value == 'A') {
+            if (card.Value == 'A' && i == 0) {
                 card.Weight = 11;
+            }
+            else if (i == 1 && card.Value == 'A' && players[x].Hand[i-1].Value == 'A') {
+                card.Weight = 1;
             }
             players[x].Hand.push(card);
             renderCard(card, x);
             updatePoints();
         }
     }
-
+    // document.getElementById('hand_' + 0).lastChild.style.backgroundColor = 'black';    
+    for (var i = 0; i < players.length; i++) {
+        if (players[i].Points == 21) {
+            document.getElementById('status_'+i).innerText = 'Blakjack!';
+            document.getElementById('status_'+i).style.display = "inline-block";
+            if (i == 0) {
+                end();
+            }
+        }
+    }
+    // });
     updateDeck();
 }
 
@@ -149,12 +176,21 @@ function updatePoints() {
 
 function hitMe() {
     var card = deck.pop();
-    players[currentPlayer].Hand.push(card);
-    for (var i = 0; i < players[currentPlayer].Hand.length; i++) {
-        if  (players[currentPlayer].Hand[i].Value == 'A' || players[currentPlayer].points > 21) {
-            players[currentPlayer].Hand[i].Weight = 1;
+    if (players[currentPlayer].Points + card.Weight > 21) {
+        if (card.Value == 'A') {
+            card.Weight = 1;
+            updatePoints();
+        }
+        else {
+            for (var i = 0; i < players[currentPlayer].Hand.length; i++) {
+                if  (players[currentPlayer].Hand[i].Value == 'A' && (players[currentPlayer].Points + card.Weight) > 21) {
+                    players[currentPlayer].Hand[i].Weight = 1;
+                    updatePoints();
+            }
         }
     }
+    }
+    players[currentPlayer].Hand.push(card);
     renderCard(card, currentPlayer);
     updatePoints();
     updateDeck();
@@ -167,7 +203,6 @@ function stay() {
         currentPlayer += 1;
         document.getElementById('player_' + currentPlayer).classList.add('active');
     }
-
     else {
         currentPlayer = 0;
         end();
@@ -178,44 +213,73 @@ function dealer() {
     while (players[currentPlayer].Points < 17) {
         hitMe();
     }
+    currentPlayer = -1;
 }
 
-
 function end() {
-    dealer();
-    var winner = -1;
-    var score = 0;
-
-    for (var i = 0; i < players.length; i++) {
-        if (players[i].Points > score && players[i].Points <= 21) {
-            winner = i;
-            score = players[winner].Points;
+    if (players[0].Points == 21) {
+        currentPlayer = -1;
+        for (var i = 1; i < players.length; i++) {
+            var score = players[0].Points;
+            if (players[i].Points > score && players[i].Points <= 21) {
+                document.getElementById('status_' + i).innerText = 'Winner!';
+                document.getElementById("status_" + i).style.display = "inline-block";
+            }
+            else if (players[i].Points < score && players[i].Points <= 21) {
+                document.getElementById('status_' + i).innerText = 'Lost!';
+                document.getElementById("status_" + i).style.display = "inline-block";
+            }
+            else if (players[i].Points == score && players[i].Points <= 21) {
+                document.getElementById('status_' + i).innerText = 'Push!';
+                document.getElementById("status_" + i).style.display = "inline-block";
+            }
+            
         }
     }
-
-    if (players[winner].Name == 'Dealer') {
-        document.getElementById('status').innerHTML = 'Winner: Dealer';
-    }
     else {
-        document.getElementById('status').innerHTML = 'Winner: Player ' + players[winner].ID;
+        dealer();
+
+        for (var i = 1; i < players.length; i++) {
+            if (players[0].Points <= 21) {
+                var score = players[0].Points;
+                if (players[i].Points > score && players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Winner!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+                else if (players[i].Points < score && players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Lost!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+                else if (players[i].Points == score && players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Push!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+            }
+            else {
+                if (players[i].Points <= 21) {
+                    document.getElementById('status_' + i).innerText = 'Winner!';
+                    document.getElementById("status_" + i).style.display = "inline-block";
+                }
+            }
+
+        }
     }
-    document.getElementById("status").style.display = "inline-block";
+    
+
+    // if (players[winner].Name == 'Dealer') {
+    //     document.getElementById('status').innerHTML = 'Winner: Dealer';
+    // }
+    // else {
+    //     document.getElementById('status').innerHTML = 'Winner: Player ' + players[winner].ID;
+    // }
+    // document.getElementById("status").style.display = "inline-block";
 }
 
 function check() {
     if (players[currentPlayer].Points > 21) {
-        if (players[currentPlayer].Name == 'Dealer') {
-            document.getElementById('status').innerHTML = 'Dealer LOST';
-        }
-        else {
-            document.getElementById('status').innerHTML = 'Player: ' + players[currentPlayer].ID + ' LOST';
-            stay();
-        }
-        document.getElementById('status').style.display = "inline-block";
-        // end();
-    }
-    else if (players[currentPlayer].Points > 21 && players[currentPlayer].ID == players.length-1) {
-        end()
+        document.getElementById('status_' + currentPlayer).innerText = 'Bust!';
+        document.getElementById("status_" + currentPlayer).style.display = "inline-block";
+        stay();
     }
 }
 
